@@ -50,7 +50,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>M9vyCND1OlkCWlYKVPymJRgobo90lnTLH4QKQhcH/uE=</dsig:DigestValue>
+        <dsig:DigestValue>X28O2YHzM1S8CovYIZ8rGyQplGTaYMEm03CTxv7ZoGE=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -96,13 +96,13 @@
       <dsig:DigestValue>iVgZveWY9xDtYs7lDousBe79Qt2mTeYOfY3oiYCCyuQ=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="OrdersRegistration.exe.config" size="1995">
+  <file name="OrdersRegistration.exe.config" size="1599">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>Mrc1sI1fPvvEEoxx23b1OGHbXjCmmdOTTyCHU6j919I=</dsig:DigestValue>
+      <dsig:DigestValue>fHjZEBI+ClkpBtthWZyTaUC/1V2RyXOIXQ2qOEKTdFE=</dsig:DigestValue>
     </hash>
   </file>
 </asmv1:assembly>
