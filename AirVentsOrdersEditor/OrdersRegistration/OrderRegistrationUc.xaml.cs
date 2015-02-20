@@ -47,7 +47,6 @@ namespace OrdersRegistration
             #region Менеджеры
 
             var managersCombo = ((IListSource) ManagersTable()).GetList();
-            //managersCombo.Add(new object() { LastName = "qef"});
 
             ManagersBox.ItemsSource = ((IListSource)ManagersTable()).GetList();
             ManagersBox.ItemsSource = managersCombo;
@@ -95,9 +94,6 @@ namespace OrdersRegistration
             OrdersList.ItemsSource = OrdersManagersDataList();
             Проверка.ItemsSource = OrdersManagersDataList();
 
-            
-
-           // Проверка.ItemsSource = OrdersManagersTable().AsDataView();
         }
         
         void UserControl_Loaded_1(object sender, RoutedEventArgs e)
@@ -192,7 +188,7 @@ namespace OrdersRegistration
 
         #region AirVentsStandardSize
 
-        DataTable AirVentsStandardSize()
+        static DataTable AirVentsStandardSize()
         {
             var standartSizeTable = new DataTable();
             using (var con = new SqlConnection(App.ConnectionString))
@@ -243,7 +239,7 @@ namespace OrdersRegistration
             public bool? ServiceAccess { get; set; }            
         }
 
-        DataTable OrdersManagersTable()
+        static DataTable OrdersManagersTable()
         {
             var ordersList = new DataTable();
             using (var con = new SqlConnection(App.ConnectionString))
@@ -270,7 +266,6 @@ namespace OrdersRegistration
                     var sqlDataAdapter = new SqlDataAdapter(sqlCommand);
                     sqlDataAdapter.Fill(ordersList);
                     sqlDataAdapter.Dispose();
-                    //ordersList.Columns["LastName"].ColumnName = "Фамилия";
                 }
                 catch (Exception exception)
                 {
@@ -290,8 +285,6 @@ namespace OrdersRegistration
                         select new OrdersManagersDataClass
                         {
                             ManagerDataClass = row["Column1"].ToString(),
-                            //LastName = row["LastName"].ToString(),
-                            //FirsrtName =  row["FirsrtName"].ToString(),
                             Date = Convert.ToDateTime(row["Date"]),
                             ProjectNumber = row["ProjectNumber"].ToString(),
                             Type = row["Type"].ToString(),
@@ -605,7 +598,7 @@ namespace OrdersRegistration
             return list;
         }
 
-        void DeleteManager(int empId)
+        static void DeleteManager(int empId)
         {
             using (var con = new SqlConnection(App.ConnectionString))
             {
@@ -631,7 +624,7 @@ namespace OrdersRegistration
             }
         }
 
-        DataTable ManagersTable()
+        static DataTable ManagersTable()
         {
             var managersList = new DataTable();
             using (var con = new SqlConnection(App.ConnectionString))
@@ -777,8 +770,6 @@ LastName = '" + lastName + "'," +
             УдалитьПодбор.IsEnabled = true;
             var item = (OrdersManagersDataClass)OrdersList.SelectedItem;
             СохранитьЗаказ.Content = "Создать заказ по подбору №" + item.ProjectNumber;
-
-            
         }
 
         void ТаблицаМенеджеров_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -955,38 +946,10 @@ LastName = '" + lastName + "'," +
             UpdateManagersBox();
         }
 
-        //private Window _редактированиеПодбора;
-
         void РедактироватьПодбор_Click(object sender, RoutedEventArgs e)
         {
             var selectedItem = (OrdersManagersDataClass)OrdersList.SelectedItem;
             if (selectedItem == null) return;
-
-            #region To Delete
-
-            //var newWindow = new Window
-            //{
-            //    SizeToContent = SizeToContent.WidthAndHeight,
-            //    ResizeMode = ResizeMode.NoResize,
-            //    Title = "Создать подбор",
-            //    WindowStartupLocation = WindowStartupLocation.CenterScreen,
-            //    Content = new OrderRegistrationUc
-            //    {
-            //        IsEditMode2 = true,
-            //        НомерПодбора = selectedItem.ProjectNumber,
-            //        ИмяПродавца = selectedItem.ManagerDataClass.Remove(selectedItem.ManagerDataClass.Length - 3),
-            //        SelectedDate = selectedItem.Date,
-            //        ТипоразмерУстановки = selectedItem.Type,
-            //        ТипКаркасаУстановки = selectedItem.Description,
-            //        Создание = false,
-            //        OrderId = selectedItem.OrderId,
-            //        Wizard = "01"
-            //    }
-            //};
-            //newWindow.ShowDialog();
-            //UpdateManagersBox();
-
-            #endregion
 
             WindowsOfApp.ОкноРедактироватьЗаказ = new Window
             {
@@ -1019,39 +982,8 @@ LastName = '" + lastName + "'," +
             WindowsOfApp.ОкноРедактироватьЗаказ.Show();
             WindowsOfApp.ОкноРедактироватьЗаказ.Closed += ОкноРедактироватьЗаказ_Closed;
 
-
             UpdateManagersBox();
-
-            //_редактированиеПодбора = new Window
-            //{
-            //    SizeToContent = SizeToContent.WidthAndHeight,
-            //    ResizeMode = ResizeMode.NoResize,
-            //    Title = "Редактирование подбора ",
-            //    WindowStartupLocation = WindowStartupLocation.CenterScreen,
-            //    Content = new OrderRegistrationUc
-            //    {
-            //        IsEditMode2 = true,
-            //        НомерПодбора = selectedItem.ProjectNumber,
-            //        ИмяПродавца = selectedItem.ManagerDataClass.Remove(selectedItem.ManagerDataClass.Length - 3),
-            //        SelectedDate = selectedItem.Date,
-            //        ТипоразмерУстановки = selectedItem.Type,
-            //        ТипКаркасаУстановки = selectedItem.Description,
-
-            //        @SupplyTotalStaticPressure = selectedItem.SupplyTotalStaticPressure,
-            //        @SupplyStaticPressure = selectedItem.SupplyStaticPressure,
-            //        @SupplyAirflow = selectedItem.SupplyAirflow,
-            //        @ExhaustTotalStaticPressure = selectedItem.ExhaustTotalStaticPressure,
-            //        @ExhaustStaticPressure = selectedItem.ExhaustStaticPressure,
-            //        @ExhaustAirflow = selectedItem.ExhaustAirflow,
-            //        @ServiceAccess = selectedItem.ServiceAccess,
-                    
-            //        Создание = false,
-            //        OrderId = selectedItem.OrderId,
-            //        Wizard = "01"
-            //    }
-            //};
-            //_редактированиеПодбора.ShowDialog();
-            //UpdateManagersBox();
+          
         }
 
         void EditInWizard()
@@ -1065,7 +997,7 @@ LastName = '" + lastName + "'," +
             {
                 SizeToContent = SizeToContent.WidthAndHeight,
                 ResizeMode = ResizeMode.NoResize,
-                Title = "Редактирование подбора",//"Подбор №" + selectedItem.ProjectNumber,
+                Title = "Редактирование подбора",
                 WindowStartupLocation = WindowStartupLocation.CenterScreen,
                 Content = new OrderRegistrationUc
                 {
@@ -1095,14 +1027,9 @@ LastName = '" + lastName + "'," +
         }
 
 
-        //private OrdersManagersDataClass SelectedItemO;
-
-
-
 
         void СохранитьЗаказ_Click(object sender, RoutedEventArgs e)
         {
-           // MessageBox.Show(SelectedItemO == null ? "Null" : "Not Null");
 
             var selectedItem = (OrdersManagersDataClass)OrdersList.SelectedItem;
 
@@ -1128,24 +1055,6 @@ LastName = '" + lastName + "'," +
             WindowsOfApp.ОкноСохранитьЗаказ.ShowDialog();
 
             WindowsOfApp.ОкноСохранитьЗаказ.Closed += ОкноСохранитьЗаказOnClosed;
-            //var newWindow = new Window
-            //{
-            //    SizeToContent = SizeToContent.WidthAndHeight,
-            //    ResizeMode = ResizeMode.NoResize,
-            //    Title = "Сохранить заказ",
-            //    WindowStartupLocation = WindowStartupLocation.CenterScreen,
-            //    Content = new OrderRegistrationKbUc
-            //    {
-            //        OrderId = selectedItem.OrderId,
-            //        IsEditMode = true,
-            //        SavingOrder = true,
-            //        RequiredDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day),
-            //        ShippedDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day),
-            //        CompletionDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day),
-            //        FinishCompletionDate = null
-            //    }
-            //};
-            //newWindow.ShowDialog();
         }
 
         private void ОкноСохранитьЗаказOnClosed(object sender, EventArgs eventArgs)

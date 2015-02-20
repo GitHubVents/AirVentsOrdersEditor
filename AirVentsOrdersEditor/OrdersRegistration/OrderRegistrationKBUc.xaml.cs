@@ -25,7 +25,7 @@ namespace OrdersRegistration
         public DateTime RequiredDate { get; set; }
         public DateTime ShippedDate { get; set; }
         public DateTime CompletionDate { get; set; }
-        //public DateTime? FinishCompletionDate { get; set; }
+        
         public string FinishCompletionDate { get; set; }
 
         public int OrderDetailId { get; set; }
@@ -116,7 +116,6 @@ namespace OrdersRegistration
             }
             var selectedItem = (OrdersConstructorDataClass)ЗаказовТаблица.SelectedItem;
             var constrName = selectedItem.Expr2.Substring(0, selectedItem.Expr2.IndexOf(' '));
-            //MessageBox.Show(constrName);
 
             var newWindow = new Window
             {
@@ -236,7 +235,6 @@ namespace OrdersRegistration
             public DateTime RequiredDate { get; set; }
             public DateTime ShippedDate { get; set; }
             public DateTime CompletionDate { get; set; }
-            //public DateTime? FinishCompletionDate { get; set; }
             public string FinishCompletionDate { get; set; }
             public int OrderDetailId { get; set; }
         }
@@ -252,9 +250,7 @@ namespace OrdersRegistration
                        OrderDetailId = Convert.ToInt32(row["OrderDetailID"]),
                        ProjectNumber = row["ProjectNumber"].ToString(),
                        Date = Convert.ToDateTime(row["Date"]),
-                      // Type = row["Type"].ToString(),
                        Description = row["Description"].ToString(),
-                      // InternalNumber = row["InternalNumber"].ToString(),
                        RequiredDate = Convert.ToDateTime(row["RequiredDate"]),
                        ShippedDate = Convert.ToDateTime(row["ShippedDate"]),
                        CompletionDate = Convert.ToDateTime(row["CompletionDate"]),
@@ -340,7 +336,6 @@ namespace OrdersRegistration
                 }
                 catch
                 {
-                  //  MessageBox.Show(exception.Message);
                     return false;
                 }
                 finally
@@ -415,7 +410,6 @@ namespace OrdersRegistration
                 }
                 catch
                 {
-                  //  MessageBox.Show(exception.Message);
                     return false;
                 }
                 finally
@@ -485,13 +479,7 @@ namespace OrdersRegistration
                 WindowsOfApp.ОкноРедактировать2Заказ.Show();
             }
 
-            
-
-            //var редоктироватьПодбор = Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.Title == "Редактирование подбора");
-            //if (редоктироватьПодбор != null) редоктироватьПодбор.Show();
-
-            //var редоктироватьПодбор2 = Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.Title == "Редактирование подбора ");
-            //if (редоктироватьПодбор2 != null) редоктироватьПодбор2.Show();
+         
         }
 
         private void Отмена_Click(object sender, RoutedEventArgs e)
@@ -502,10 +490,7 @@ namespace OrdersRegistration
 
         private void Вперед_Click(object sender, RoutedEventArgs e)
         {
-            //var редоктироватьПодбор = Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.Title == "Редактирование подбора");
-            //if (редоктироватьПодбор != null) //редоктироватьПодбор.Close();
-            //редоктироватьПодбор.ShowDialog();
-
+          
             if (!IsEditMode)
             {
                 Редактировать_Click(null,null);
