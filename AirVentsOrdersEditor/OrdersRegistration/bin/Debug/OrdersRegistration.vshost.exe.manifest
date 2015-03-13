@@ -43,14 +43,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="OrdersRegistration.exe" size="165888">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="OrdersRegistration.exe" size="166400">
       <assemblyIdentity name="OrdersRegistration" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>X28O2YHzM1S8CovYIZ8rGyQplGTaYMEm03CTxv7ZoGE=</dsig:DigestValue>
+        <dsig:DigestValue>87xkRyxu7GyNtHfpPIVegOh1LowSSbWQUMlzP9dxyI0=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
