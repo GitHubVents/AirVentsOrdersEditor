@@ -26,7 +26,7 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ProductName>Учет заказов</ProductName>
     <PublisherName>Vents</PublisherName>
-    <ApplicationRevision>41</ApplicationRevision>
+    <ApplicationRevision>46</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -64,7 +64,7 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>br_icon_teaser_cad_sr_pos_150%281%29.ico</ApplicationIcon>
+    <ApplicationIcon>1427371082_379508.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>OrdersRegistration.App</StartupObject>
@@ -193,7 +193,10 @@
     <Resource Include="br_icon_teaser_cad_sr_pos_150%281%29.ico" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="1427371082_379508.ico" />
     <Content Include="Library\System.Windows.Controls.DataVisualization.Toolkit.dll" />
+    <Resource Include="todo_list.ico" />
+    <Resource Include="todo_list-512.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

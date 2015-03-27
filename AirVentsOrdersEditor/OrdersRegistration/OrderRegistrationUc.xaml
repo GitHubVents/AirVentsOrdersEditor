@@ -12,6 +12,10 @@
                       <Setter Property="Background" Value="#FFB8EAF0"></Setter>  
                     <Setter Property="FontSize" Value="13"></Setter>
                 </Trigger>
+                <!--<Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="Black"></Setter>
+                    <Setter Property="FontSize" Value="17"></Setter>
+                </Trigger>-->
             </Style.Triggers>
         </Style>
     </UserControl.Resources>
