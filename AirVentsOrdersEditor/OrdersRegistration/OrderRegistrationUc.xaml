@@ -6,6 +6,10 @@
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="950" Loaded="UserControl_Loaded_1">
     <UserControl.Resources>
+        <Style TargetType="DataGridColumnHeader">
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        </Style>
+
         <Style TargetType="{x:Type DataGridRow}">
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">

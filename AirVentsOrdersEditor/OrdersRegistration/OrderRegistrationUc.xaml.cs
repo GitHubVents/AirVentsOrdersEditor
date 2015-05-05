@@ -179,11 +179,74 @@ namespace OrdersRegistration
                     Отмена.Visibility = Visibility.Collapsed;
                     break;
             }
-
-
-            
-
         }
+
+        #region LotsOfItems : ObservableCollection<String>
+
+        //todo LotsOfItems : ObservableCollection<String>
+        //<StackPanel>
+
+//  <StackPanel.Resources>
+//    <src:LotsOfItems x:Key="data"/>
+//  </StackPanel.Resources>
+
+//  <ListBox Height="150" ItemsSource="{StaticResource data}" 
+//             VirtualizingStackPanel.VirtualizationMode="Recycling" />
+
+//</StackPanel>
+
+//        public class LotsOfItems : ObservableCollection<String>
+//        {
+//            public LotsOfItems()
+//            {
+//                for (int i = 0; i < 1000; ++i)
+//                {
+//                    Add("item " + i.ToString());
+//                }
+//            }
+//        }
+
+        #endregion
+
+        #region
+
+        public string SuggestionList = "";
+
+        //protected void Page_Load(object sender, EventArgs e)
+        //{
+        //    const string queryString = "SELECT * FROM Customers  ORDER BY CompanyName";
+
+        //    using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["NorthwindConnectionString"].ConnectionString))
+        //    {
+
+        //        using (var command = new SqlCommand(queryString, connection))
+        //        {
+                 
+        //            connection.Open();
+
+        //            using (var reader = command.ExecuteReader())
+        //            {
+
+        //                while (reader.Read())
+        //                {
+
+        //                    if (string.IsNullOrEmpty(SuggestionList))
+        //                    {
+        //                        SuggestionList += "\"" + reader["CompanyName"].ToString() + "\"";
+        //                    }
+        //                    else
+        //                    {
+        //                        SuggestionList += ", \"" + reader["CompanyName"].ToString() + "\"";
+        //                    }
+
+        //                }
+        //            }
+        //        }
+        //    }
+        //}
+
+        #endregion
+
 
 
         #region AirVentsStandardSize
@@ -1116,7 +1179,6 @@ LastName = '" + lastName + "'," +
             };
             WindowsOfApp.ОкноСоздатьЗаказ.ShowDialog();
             UpdateManagersBox();
-            
           
         }
 
@@ -1152,7 +1214,6 @@ LastName = '" + lastName + "'," +
             }
         }
 
-
         void СохранитьЗаказПоказать()
         {
             var parent = Window.GetWindow(this);
@@ -1161,11 +1222,8 @@ LastName = '" + lastName + "'," +
             if (WindowsOfApp.ОкноСохранитьЗаказ == null) return;
             
             WindowsOfApp.ОкноСохранитьЗаказ.Show();
-            MessageBox.Show("sfqeqf");
-
+            MessageBox.Show("0__0");
         }
-        
-      
 
         void Отмена_Click(object sender, RoutedEventArgs e)
         {

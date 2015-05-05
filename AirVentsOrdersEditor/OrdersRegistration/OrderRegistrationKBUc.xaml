@@ -16,8 +16,6 @@
         </Style>
     </UserControl.Resources>
     
-    
-    
     <Grid x:Name="GridKb" Loaded="Grid_Loaded_1">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -111,16 +109,19 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                <DataGrid x:Name="ЗаказовТаблица" ColumnHeaderHeight="25" VerticalContentAlignment="Center"  IsReadOnly="True" ItemsSource="{Binding OrdersConstructorDataClass}" Margin="3" CanUserResizeRows="False" Width="Auto"  AutoGenerateColumns="False"  SelectedIndex="0"
+                <DataGrid x:Name="ЗаказовТаблица" ColumnHeaderHeight="25" VerticalContentAlignment="Center" IsReadOnly="True" ItemsSource="{Binding OrdersConstructorDataClass}" Margin="3" CanUserResizeRows="False" Width="Auto"  AutoGenerateColumns="False"  SelectedIndex="0"
         			Background="{x:Null}" SelectionMode="Single" LoadingRow="ЗаказовТаблица_LoadingRow" MaxHeight="386" VerticalAlignment="Top" HorizontalAlignment="Center" VerticalScrollBarVisibility="Visible" RowHeight="25" SelectionChanged="ЗаказовТаблица_SelectionChanged">
 
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Подбор" Width="100" Binding="{Binding ProjectNumber}"/>
-                        <DataGridTextColumn Header="Менеджер" Width="80" Binding="{Binding Expr1}"/>
-                        <DataGridTextColumn Header="Дата" Width="75" Binding="{Binding Date, StringFormat=d}"/>
                         <DataGridTextColumn Header="Заказ" Width="90" Binding="{Binding Order, StringFormat=d}"/>
+                        <DataGridTextColumn Header="Менеджер" Width="80" Binding="{Binding Expr1}"/>
+                        <DataGridTextColumn Header="Конструктор" Width="90" Binding="{Binding Expr2}"/>
+                        <DataGridTextColumn Header="Подбор" Width="100" Binding="{Binding ProjectNumber}"/>
                         <DataGridTextColumn Header="Тип каркаса" Width="100" Binding="{Binding Description, StringFormat=d}"/>
+                        <DataGridTextColumn Header="Дата" Width="75" Binding="{Binding Date, StringFormat=d}"/>
                         <DataGridTextColumn Header="Поступление" Width="83" Binding="{Binding RequiredDate, ConverterCulture=ru-RU, StringFormat=d}"/>
+                        <DataGridTextColumn Header="Сдача КД (П)" Width="80" Binding="{Binding CompletionDate, StringFormat=d}"/>
+                        <DataGridTextColumn Header="Сдача КД (Ф)" Width="80" Binding="{Binding FinishCompletionDate}"/>
                         <DataGridTextColumn Header="Отгрузка" Width="80" Binding="{Binding ShippedDate, StringFormat=d}">
                             <DataGridTextColumn.ElementStyle>
                                 <Style>
@@ -128,10 +129,6 @@
                                 </Style>
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
-                        <DataGridTextColumn Header="Конструктор" Width="90" Binding="{Binding Expr2}"/>
-                        <DataGridTextColumn Header="Сдача КД (П)" Width="80" Binding="{Binding CompletionDate, StringFormat=d}"/>
-
-                        <DataGridTextColumn Header="Сдача КД (Ф)" Width="80" Binding="{Binding FinishCompletionDate}"/>
                     </DataGrid.Columns>
 
                 </DataGrid>
