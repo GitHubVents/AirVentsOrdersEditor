@@ -239,7 +239,7 @@ namespace OrdersRegistration
             public int OrderDetailId { get; set; }
         }
         
-        private IEnumerable<OrdersConstructorDataClass> OrdersConstructorDataList()
+        private static IEnumerable<OrdersConstructorDataClass> OrdersConstructorDataList()
         {
             var list = (from DataRow row in OrdersConstructorTable().Rows
                    select new OrdersConstructorDataClass
@@ -280,7 +280,6 @@ namespace OrdersRegistration
 
         #endregion
 
-
         #endregion
 
        
@@ -306,7 +305,6 @@ namespace OrdersRegistration
                             }
                         }
                     }
-
 
             using (var con = new SqlConnection(App.ConnectionString))
             {

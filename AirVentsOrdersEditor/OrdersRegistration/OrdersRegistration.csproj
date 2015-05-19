@@ -26,7 +26,7 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ProductName>Учет заказов</ProductName>
     <PublisherName>Vents</PublisherName>
-    <ApplicationRevision>47</ApplicationRevision>
+    <ApplicationRevision>49</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -93,12 +93,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Inners.xaml.cs">
+      <DependentUpon>Inners.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Assemblage.xaml.cs">
       <DependentUpon>Assemblage.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\ChartUc.xaml.cs">
       <DependentUpon>ChartUc.xaml</DependentUpon>
     </Compile>
+    <Page Include="Inners.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="OrderRegistrationKBUc.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

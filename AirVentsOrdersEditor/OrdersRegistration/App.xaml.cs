@@ -53,9 +53,4 @@ namespace OrdersRegistration
         public static int НеОбработаны { get; set; }
         public static int НаПрощете { get; set; }
     }
-
-   
-
-
-     
 }

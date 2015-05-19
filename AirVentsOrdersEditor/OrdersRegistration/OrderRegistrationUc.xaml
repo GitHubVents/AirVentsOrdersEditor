@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="500" d:DesignWidth="950" Loaded="UserControl_Loaded_1">
+             d:DesignHeight="800" d:DesignWidth="950" Loaded="UserControl_Loaded_1">
     <UserControl.Resources>
         <Style TargetType="DataGridColumnHeader">
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -50,8 +50,6 @@
         				SelectionMode="Single" ItemsSource="{Binding OrdersManagersDataClass}" LoadingRow="OrdersList_LoadingRow" HorizontalAlignment="Center" VerticalAlignment="Center" SelectionChanged="OrdersList_SelectionChanged" VerticalContentAlignment="Center">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Менеджер" Width="85" Binding="{Binding ManagerDataClass}"/>
-
-
                             <DataGridTextColumn Header="Дата" Width="70" Binding="{Binding Date, StringFormat=d}">
                                 <DataGridTextColumn.ElementStyle>
                                     <Style>
@@ -73,11 +71,8 @@
                                     </Style>
                                 </DataGridTextColumn.ElementStyle>
                             </DataGridTextColumn>
-
                             <DataGridTextColumn Header="Тип каркаса" Width="100" Binding="{Binding Description}"/>
                         </DataGrid.Columns>
-
-
                     </DataGrid>
                     <Grid HorizontalAlignment="Right" Margin="0" Grid.Row="1" VerticalAlignment="Top">
                         <Grid.ColumnDefinitions>
@@ -89,7 +84,6 @@
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
-                           
                         </Grid.RowDefinitions>
                         <Button x:Name="УдалитьПодбор" Content="Удалить" Margin="2,5" Background="{x:Null}" Click="УдалитьПодбор_Click"
                                 Grid.Row="0" Grid.Column="4" Padding="5,1" Height="25"/>
@@ -194,7 +188,6 @@
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -204,7 +197,7 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
-                        <RowDefinition />
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <Grid
             			VerticalAlignment="Center" Grid.Row="0" Margin="3" HorizontalAlignment="Left" Grid.Column="1">
@@ -236,12 +229,7 @@
                     </Grid>
                     <Grid
             			VerticalAlignment="Center" Grid.Row="1" Margin="3" HorizontalAlignment="Left" Grid.Column="0">
-                        <Grid.ColumnDefinitions
-        >
-                            <ColumnDefinition
-            					Width="Auto"/>
-                            <ColumnDefinition
-            					Width="Auto"/>
+                        <Grid.ColumnDefinitions>
                             <ColumnDefinition
             					Width="Auto"/>
                             <ColumnDefinition
@@ -250,7 +238,9 @@
                         <Label
             				Width="80" VerticalAlignment="Center" Margin="2" HorizontalAlignment="Left" FontSize="12" Content="Типоразмер:"/>
                         <ComboBox
-            				Width="110" SelectionChanged="Типоразмер_SelectionChanged" SelectedIndex="0" Padding="5" x:Name="Типоразмер" MinWidth="50" Margin="2" HorizontalAlignment="Center" FontSize="12" Grid.Column="2" Background="{x:Null}" VerticalAlignment="Center" Height="25" VerticalContentAlignment="Center"/>
+                            Width="110" SelectionChanged="Типоразмер_SelectionChanged" SelectedIndex="0" Padding="5"
+                            x:Name="Типоразмер" MinWidth="50" Margin="2" HorizontalAlignment="Center" FontSize="12" Grid.Column="1"
+                            Background="{x:Null}" VerticalAlignment="Center" Height="25" VerticalContentAlignment="Center"/>
                     </Grid>
                     <Grid
             			VerticalAlignment="Center" Grid.Row="1" Margin="3" HorizontalAlignment="Left" Grid.Column="1">
@@ -394,6 +384,7 @@
                             <ComboBoxItem Content="Обработан"/>
                         </ComboBox>
                     </Grid>
+                    <StackPanel x:Name="InnerItems" Grid.ColumnSpan="3" Grid.Column="0" HorizontalAlignment="Stretch" Height="325" Margin="2" Grid.Row="7" VerticalAlignment="Top" Width="Auto"/>
                 </Grid>
             </GroupBox>
         </Grid>

@@ -93,7 +93,6 @@ namespace OrdersRegistration
             if (OrdersList.SelectedItem != null) return;
             OrdersList.ItemsSource = OrdersManagersDataList();
             Проверка.ItemsSource = OrdersManagersDataList();
-
         }
         
         void UserControl_Loaded_1(object sender, RoutedEventArgs e)
@@ -105,6 +104,7 @@ namespace OrdersRegistration
                 Общая.Visibility = Visibility.Collapsed;
                 SelectionEditor.Visibility = Visibility.Collapsed;
 
+                
                 ManagersBox.SelectedIndex = 0;
             }
             else if (IsEditMode2)
@@ -148,11 +148,14 @@ namespace OrdersRegistration
                     Right.IsChecked = true;
                 }
 
+               // InnerItems.Visibility = Visibility.Collapsed;
             }
             else
             {
                 РедакторМенеджеров.Visibility = Visibility.Collapsed;
                 SelectionEditor.Visibility = Visibility.Collapsed;
+
+                InnerItems.Visibility = Visibility.Collapsed;
             }
 
             switch (Wizard)
@@ -246,8 +249,6 @@ namespace OrdersRegistration
         //}
 
         #endregion
-
-
 
         #region AirVentsStandardSize
 
@@ -805,6 +806,13 @@ LastName = '" + lastName + "'," +
             ТипКаркаса.DisplayMemberPath = "Description";
             ТипКаркаса.SelectedValue = "Description";
             ТипКаркаса.SelectedIndex = 0;
+
+            InnerItems.Children.Clear();
+            InnerItems.Children.Add(new Inners
+            {
+                SizeAv = Convert.ToInt32(Типоразмер.SelectedValue),
+                OrderId = OrderId
+            });
         }
 
         void OrdersList_LoadingRow(object sender, DataGridRowEventArgs e)
@@ -1036,13 +1044,13 @@ LastName = '" + lastName + "'," +
                     @ExhaustStaticPressure = selectedItem.ExhaustStaticPressure,
                     @ExhaustAirflow = selectedItem.ExhaustAirflow,
                     @ServiceAccess = selectedItem.ServiceAccess,
-
+                    
                     Создание = false,
                     OrderId = selectedItem.OrderId,
                     Wizard = "01"
                 }
             };
-            WindowsOfApp.ОкноРедактироватьЗаказ.Show();
+            WindowsOfApp.ОкноРедактироватьЗаказ.ShowDialog();
             WindowsOfApp.ОкноРедактироватьЗаказ.Closed += ОкноРедактироватьЗаказ_Closed;
 
             UpdateManagersBox();
