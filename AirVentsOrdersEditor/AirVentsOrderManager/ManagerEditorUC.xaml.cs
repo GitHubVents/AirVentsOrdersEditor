@@ -16,31 +16,13 @@ using System.Windows.Shapes;
 namespace AirVentsOrderManager
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for ManagerEditorUC.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class ManagerEditorUC : UserControl
     {
-        public MainWindow()
+        public ManagerEditorUC()
         {
             InitializeComponent();
-            
-            MainGrid.Children.Clear();
-            MainGrid.Children.Add(new MainUC());
-        }
-
-        private void NewOrder_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void ExportToExel_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void EditManager_Click(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }

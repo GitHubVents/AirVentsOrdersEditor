@@ -5,8 +5,22 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AirVentsOrderManager"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="Редактор заказов AirVents" Height="450" Width="700" WindowStartupLocation="CenterScreen">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Menu IsMainMenu="True" Grid.Row="0">
+            <MenuItem Header="_Файл">
+                <MenuItem Header="Новый подбор" Click="NewOrder_Click"/>
+                <Separator />
+                <MenuItem Header="_Экспортировать в Exel" Click="ExportToExel_Click"/>
+            </MenuItem>
+            <MenuItem Header="_Редактировать">
+                <MenuItem Header="Редактор менеджеров" Click="EditManager_Click"/>
+            </MenuItem>
+        </Menu>
+        <Grid x:Name="MainGrid" Grid.Row="1" />
     </Grid>
 </Window>
