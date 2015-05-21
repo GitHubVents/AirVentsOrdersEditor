@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Markup;
 using OrdersRegistration.Properties;
 
@@ -45,6 +46,11 @@ namespace OrdersRegistration
         public static Window ОкноРедактироватьЗаказ { get; set; }
         public static Window ОкноРедактировать2Заказ { get; set; }
         public static Window ОкноСохранитьЗаказ { get; set; }
+    }
+
+    public static class UserControlsOfApp
+    {
+        public static UserControl КомплектующиеЗаказа { get; set; }
     }
 
     public static class Заказы

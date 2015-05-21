@@ -32,6 +32,7 @@ namespace OrdersRegistration
         {
             public string Name { get; set; }
             public int IdNomenclature { get; set; }
+            public int IdBom { get; set; }
             
             public string Model { get; set; }
             public int Count { get; set; }
@@ -41,6 +42,14 @@ namespace OrdersRegistration
 
         void Grid_Loaded(object sender, RoutedEventArgs e)
         {
+            OrderIdLbl.Content = OrderId;
+            SizeId.Content = SizeAv;
+
+            MotorFanBox.ItemsSource = ((IListSource)Motors()).GetList();
+            MotorFanBox.DisplayMemberPath = "Nomenclature";
+            MotorFanBox.SelectedValuePath = "IdNomenclature";
+            MotorFanBox.SelectedIndex = 0;
+
             HeatExchangers.ItemsSource = ((IListSource)InnerItem(6)).GetList();
             HeatExchangers.DisplayMemberPath = "Column1";
             HeatExchangers.SelectedValuePath = "IdNomenclature";
@@ -66,24 +75,14 @@ namespace OrdersRegistration
             MoistureBox1.SelectedValuePath = "IdNomenclature";
             MoistureBox1.SelectedIndex = 0;
 
-            DataTableToSee.ItemsSource =  InnerPartsOfOrder().AsDataView();//InnerItem().AsDataView();
+            DataTableToSee.ItemsSource =  InnerPartsOfOrder().AsDataView();//InnerItem().AsDataView();Motors().AsDataView();
             UpdateList();
         }
         
-        void ChangeItem(object sender, RoutedEventArgs e)
-        {
-            var item = InnersList.SelectedItem as InnersListData;
-
-            if (item != null)
-
-            EditOrderBomItem(5, item.IdNomenclature);
-        }
-
         void DeleteItem(object sender, RoutedEventArgs e)
         {
             var item = InnersList.SelectedItem as InnersListData;
-
-            if (item != null) DelOrderBomItem(item.IdNomenclature);
+            if (item != null) DelOrderBomItem(item.IdNomenclature, item.IdBom);
         }
 
         void UpdateList()
@@ -91,8 +90,37 @@ namespace OrdersRegistration
             InnersList.ItemsSource = InnerPartsList();
         }
 
-
         #region Working with SQL
+
+        DataTable Motors()
+        {
+            var standartSizeTable = new DataTable();
+
+            using (var con = new SqlConnection(App.ConnectionString))
+            {
+                try
+                {
+                    con.Open();
+                    var sqlCommand = new SqlCommand(@"SELECT n.IdNomenclature, n.Nomenclature FROM Nomenclature n
+  INNER JOIN AirVents.Fans f ON n.IDNomenclature = f.IDNomenclature
+  INNER JOIN AirVents.StandardSize ss ON f.SizeID = ss.SizeID
+  WHERE n.IDNomenclatureGroup = 14
+  AND ss.SizeID = " + SizeAv, con);
+                    var sqlDataAdapter = new SqlDataAdapter(sqlCommand);
+                    sqlDataAdapter.Fill(standartSizeTable);
+                    sqlDataAdapter.Dispose();
+                }
+                catch (Exception exception)
+                {
+                    MessageBox.Show(exception.Message, "Ошибка выгрузки данных из базы");
+                }
+                finally
+                {
+                    con.Close();
+                }
+            }
+            return standartSizeTable;
+        }
 
         DataTable InnerItem(int id)
         {
@@ -122,7 +150,7 @@ namespace OrdersRegistration
             return standartSizeTable;
         }
 
-        public List<InnersListData> InnerPartsList()
+        IEnumerable<InnersListData> InnerPartsList()
         {
             var table = InnerPartsOfOrder();
             var list = (from DataRow row in table.Rows
@@ -132,6 +160,7 @@ namespace OrdersRegistration
                             IdNomenclature = Convert.ToInt32(row["IDNomenclature"]),
                             Model  = row["Model"].ToString(),
                             Count = Convert.ToInt32(row["quantity"]),
+                            IdBom = Convert.ToInt32(row["IDBOM"]),
                             //Manufactoring  = row["FirsrtName"].ToString(),
                             Notes = row["Notes"].ToString(),
                         }).ToList();
@@ -146,10 +175,12 @@ namespace OrdersRegistration
                 try
                 {
                     con.Open();
-                    var sqlCommand = new SqlCommand(@"SELECT o.ProjectNumber[Order], od.InternalNumber, ob.quantity, n.Nomenclature, n.IDNomenclature, he.Model, he.Notes FROM Nomenclature n
-  INNER JOIN AirVents.HeaterExchander he ON n.IdNomenclature = he.IdNomenclature
-  INNER JOIN AirVents.OrderBOM ob ON n.IdNomenclature = ob.IDnomenclature
-  INNER JOIN AirVents.[Order] o ON ob.IDOrder = o.OrderID
+
+                    var sqlCommand = new SqlCommand(@"SELECT ob.IDBOM, o.ProjectNumber[OrderName],  od.InternalNumber, ob.Quantity, n.Nomenclature, n.IDNomenclature,  he.Notes, IsNull(he.Model, '') +  IsNull(f.Model, '') AS 'Model' FROM Nomenclature n
+  LEFT JOIN AirVents.HeaterExchander he ON n.IDNomenclature = he.IDNomenclature
+  LEFT JOIN AirVents.Fans f ON n.IDNomenclature = f.IDNomenclature
+  INNER JOIN AirVents.OrderBOM ob ON n.IDNomenclature = ob.IDnomenclature
+  INNER JOIN AirVents.[OrderName] o ON ob.IDOrder = o.OrderID
   INNER JOIN AirVents.OrderDetails od ON o.OrderID = od.OrderID
   WHERE o.OrderID = " + OrderId, con);
                     var sqlDataAdapter = new SqlDataAdapter(sqlCommand);
@@ -168,26 +199,26 @@ namespace OrdersRegistration
             return standartSizeTable;
         }
 
-        bool AddOrderBomItem(int quantity, int idNomenclature)
+        void AddOrderBomItem(int quantity, int idNomenclature)
         {
-            if (!WorkWithParam(1, quantity, idNomenclature))
+            if (!WorkWithParam(1, quantity, idNomenclature, 0))
             {
               //  return EditOrderBomItem(int quantity, int idNomenclature)
             }
-            return true;
+            //return true;
         }
 
-        bool EditOrderBomItem(int quantity, int idNomenclature)
+        void EditOrderBomItem(int quantity, int idNomenclature, int idBom)
         {
-            return WorkWithParam(2, quantity, idNomenclature);
+            WorkWithParam(2, quantity, idNomenclature, idBom);
         }
 
-        bool DelOrderBomItem(int idNomenclature)
+        void DelOrderBomItem(int idNomenclature, int idBom)
         {
-            return WorkWithParam(3, 0, idNomenclature);
+            WorkWithParam(3, 0, idNomenclature, idBom);
         }
 
-        bool WorkWithParam(int param, int quantity, int idNomenclature)
+        bool WorkWithParam(int param, int quantity, int idNomenclature, int idBom)
         {
             using (var con = new SqlConnection(App.ConnectionString))
             {
@@ -199,10 +230,12 @@ namespace OrdersRegistration
                     var sqlParameter = sqlCommand.Parameters;
 
                     sqlParameter.AddWithValue("@IDOrder", OrderId);
-                    sqlParameter.AddWithValue("@IDnomenclature", Convert.ToInt32(idNomenclature));
-                    sqlParameter.AddWithValue("@quantity", Convert.ToInt32(quantity));
+                    sqlParameter.AddWithValue("@IDnomenclature", idNomenclature);
+                    sqlParameter.AddWithValue("@quantity", quantity);
 
-                    sqlParameter.AddWithValue("@PARAM", Convert.ToInt32(param));
+                    sqlParameter.AddWithValue("@IDBOM", idBom);
+                    
+                    sqlParameter.AddWithValue("@PARAM", param);
 
                     sqlCommand.ExecuteNonQuery();
                 }
@@ -220,42 +253,51 @@ namespace OrdersRegistration
             return true;
         }
 
-
         #endregion
 
-        private void InnersList_CurrentCellChanged(object sender, EventArgs e)
+        void InnersList_CurrentCellChanged(object sender, EventArgs e)
         {
             var item = InnersList.SelectedItem as InnersListData;
 
             if (item != null)
 
-            EditOrderBomItem(item.Count, item.IdNomenclature);
+                EditOrderBomItem(item.Count, item.IdNomenclature, item.IdBom);
+        }
+
+        void AddMotorFan_Click(object sender, RoutedEventArgs e)
+        {
+            if (MotorFanBox.SelectedValue != null)
+                AddOrderBomItem(1, Convert.ToInt32(MotorFanBox.SelectedValue.ToString()));
         }
 
         void AddHeatExchangers_Click(object sender, RoutedEventArgs e)
         {
-            AddOrderBomItem(1, Convert.ToInt32(HeatExchangers.SelectedValue.ToString()));
+            if (HeatExchangers.SelectedValue != null)
+                AddOrderBomItem(1, Convert.ToInt32(HeatExchangers.SelectedValue.ToString()));
         }
 
-        private void AddColdExchangers_Click(object sender, RoutedEventArgs e)
+        void AddColdExchangers_Click(object sender, RoutedEventArgs e)
         {
-            AddOrderBomItem(1, Convert.ToInt32(ColdExchangers.SelectedValue.ToString()));
+            if (ColdExchangers.SelectedValue != null)
+                AddOrderBomItem(1, Convert.ToInt32(ColdExchangers.SelectedValue.ToString()));
         }
 
-        private void AddColdExchangers2_Click(object sender, RoutedEventArgs e)
+        void AddColdExchangers2_Click(object sender, RoutedEventArgs e)
         {
-            AddOrderBomItem(1, Convert.ToInt32(ColdExchangers2.SelectedValue.ToString()));
+            if (ColdExchangers2.SelectedValue != null)
+                AddOrderBomItem(1, Convert.ToInt32(ColdExchangers2.SelectedValue.ToString()));
         }
 
-        private void Recuperator_Click(object sender, RoutedEventArgs e)
+        void Recuperator_Click(object sender, RoutedEventArgs e)
         {
-            AddOrderBomItem(1, Convert.ToInt32(RecuperatorBox.SelectedValue.ToString()));
+            if (RecuperatorBox.SelectedValue != null)
+                AddOrderBomItem(1, Convert.ToInt32(RecuperatorBox.SelectedValue.ToString()));
         }
 
-        private void Moisture1_Click(object sender, RoutedEventArgs e)
+        void Moisture1_Click(object sender, RoutedEventArgs e)
         {
-            AddOrderBomItem(1, Convert.ToInt32(MoistureBox1.SelectedValue.ToString()));
+            if (MoistureBox1.SelectedValue != null)
+                AddOrderBomItem(1, Convert.ToInt32(MoistureBox1.SelectedValue.ToString()));
         }
-
     }
 }
