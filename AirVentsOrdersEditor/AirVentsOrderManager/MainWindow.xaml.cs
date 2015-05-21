@@ -40,7 +40,8 @@ namespace AirVentsOrderManager
 
         private void EditManager_Click(object sender, RoutedEventArgs e)
         {
-
+            var editManagerWindow = new Window {};
+            editManagerWindow.ShowDialog();
         }
     }
 }
