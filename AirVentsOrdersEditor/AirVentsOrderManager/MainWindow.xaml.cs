@@ -15,17 +15,17 @@ namespace AirVentsOrderManager
             MainGrid.Children.Add(new MainUC());
         }
 
-        private void NewOrder_Click(object sender, RoutedEventArgs e)
+        void NewOrder_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("ljhlj");
         }
 
-        private void ExportToExel_Click(object sender, RoutedEventArgs e)
+        void ExportToExel_Click(object sender, RoutedEventArgs e)
         {
 
         }
 
-        private void EditManager_Click(object sender, RoutedEventArgs e)
+        void EditManager_Click(object sender, RoutedEventArgs e)
         {
 
         }
