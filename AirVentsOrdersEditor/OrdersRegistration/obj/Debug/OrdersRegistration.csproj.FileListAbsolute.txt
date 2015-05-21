@@ -93,3 +93,6 @@ C:\Users\kb81.VENTS\Source\Repos\AirVentsOrdersEditor\AirVentsOrdersEditor\Order
 C:\Users\kb81.VENTS\Source\Repos\AirVentsOrdersEditor\AirVentsOrdersEditor\OrdersRegistration\obj\Debug\UserControls\OrderRegistrationUc.g.cs
 C:\Users\kb81.VENTS\Source\Repos\AirVentsOrdersEditor\AirVentsOrdersEditor\OrdersRegistration\obj\Debug\Inners.baml
 C:\Users\kb81.VENTS\Source\Repos\AirVentsOrdersEditor\AirVentsOrdersEditor\OrdersRegistration\obj\Debug\Inners.g.cs
+C:\Users\Denis Orel\Source\Repos\AirVentsOrdersEditor\AirVentsOrdersEditor\OrdersRegistration\bin\Debug\OrdersRegistration.exe.config
+C:\Users\Denis Orel\Source\Repos\AirVentsOrdersEditor\AirVentsOrdersEditor\OrdersRegistration\obj\Debug\OrdersRegistration.exe
+C:\Users\Denis Orel\Source\Repos\AirVentsOrdersEditor\AirVentsOrdersEditor\OrdersRegistration\obj\Debug\OrdersRegistration.pdb
