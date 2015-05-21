@@ -10,8 +10,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 
-
-namespace OrdersRegistration
+namespace OrdersRegistration.UserControls
 {
     /// <summary>
     /// Interaction logic for OrderRegistrationUc.xaml
@@ -38,7 +37,6 @@ namespace OrdersRegistration
         public int? @ExhaustStaticPressure { get; set; }
         public double? @ExhaustAirflow { get; set; }
         public bool? @ServiceAccess { get; set; }
-        
 
         public OrderRegistrationUc()
         {
@@ -103,7 +101,6 @@ namespace OrdersRegistration
                 ТаблицаМенеджеров.ItemsSource = ManagersList();
                 Общая.Visibility = Visibility.Collapsed;
                 SelectionEditor.Visibility = Visibility.Collapsed;
-
                 
                 ManagersBox.SelectedIndex = 0;
             }
@@ -131,7 +128,6 @@ namespace OrdersRegistration
                 if (@ExhaustStaticPressure != null) ПолноеСтатическоеДавлениеВентилятораВитяжка.Text = @ExhaustStaticPressure.ToString();
                 if (@ExhaustAirflow != null) СкоростьВСеченииВитяжка.Text = @ExhaustAirflow.ToString();
 
-
                 if (@ServiceAccess == null)
                 {
                     Left.IsChecked = true;
@@ -147,7 +143,6 @@ namespace OrdersRegistration
                     Left.IsChecked = false;
                     Right.IsChecked = true;
                 }
-
                // InnerItems.Visibility = Visibility.Collapsed;
             }
             else
@@ -155,7 +150,7 @@ namespace OrdersRegistration
                 РедакторМенеджеров.Visibility = Visibility.Collapsed;
                 SelectionEditor.Visibility = Visibility.Collapsed;
 
-                InnerItems.Visibility = Visibility.Collapsed;
+              //  InnerItems.Visibility = Visibility.Collapsed;
             }
 
             switch (Wizard)
@@ -165,6 +160,10 @@ namespace OrdersRegistration
                     Вперед.IsEnabled = Номерподбора.Text != "";
                     Отмена.IsEnabled = true;
                     СоздатьЗаказ.Visibility = Visibility.Collapsed;
+                    if (!IsEditMode2)
+                    {
+                        InnerItems.Visibility = Visibility.Collapsed;
+                    }
                     break;
                 case "10":
                     Назад.IsEnabled = true;
@@ -312,18 +311,18 @@ namespace OrdersRegistration
                 {
                     con.Open();
                     
-                    var sqlCommand = new SqlCommand( @"SELECT HumanResources.Employee.LastName +' '+ LEFT(HumanResources.Employee.FirsrtName, 1)+'.', AirVents.[Order].Date, AirVents.[Order].ProjectNumber, AirVents.StandardSize.Type, 
-       AirVents.Profil.Description,  AirVents.[Order].OrderID
-    ,AirVents.[Order].SupplyAirflow
-    ,AirVents.[Order].SupplyStaticPressure
-    ,AirVents.[Order].SupplyTotalStaticPressure
-    ,AirVents.[Order].ExhaustAirflow
-    ,AirVents.[Order].ExhaustStaticPressure
-    ,AirVents.[Order].ExhaustTotalStaticPressure
-    ,AirVents.[Order].ServiceAccess
+                    var sqlCommand = new SqlCommand( @"SELECT HumanResources.Employee.LastName +' '+ LEFT(HumanResources.Employee.FirsrtName, 1)+'.', AirVents.[OrderName].Date, AirVents.[OrderName].ProjectNumber, AirVents.StandardSize.Type, 
+       AirVents.Profil.Description,  AirVents.[OrderName].OrderID
+    ,AirVents.[OrderName].SupplyAirflow
+    ,AirVents.[OrderName].SupplyStaticPressure
+    ,AirVents.[OrderName].SupplyTotalStaticPressure
+    ,AirVents.[OrderName].ExhaustAirflow
+    ,AirVents.[OrderName].ExhaustStaticPressure
+    ,AirVents.[OrderName].ExhaustTotalStaticPressure
+    ,AirVents.[OrderName].ServiceAccess
     FROM  AirVents.DimensionType INNER JOIN
-       AirVents.[Order] ON AirVents.DimensionType.DimensionTypeID = AirVents.[Order].DimensionTypeID INNER JOIN
-       HumanResources.Employee ON AirVents.[Order].empid = HumanResources.Employee.EmpID INNER JOIN
+       AirVents.[OrderName] ON AirVents.DimensionType.DimensionTypeID = AirVents.[OrderName].DimensionTypeID INNER JOIN
+       HumanResources.Employee ON AirVents.[OrderName].empid = HumanResources.Employee.EmpID INNER JOIN
        AirVents.Profil ON AirVents.DimensionType.ProfilID = AirVents.Profil.ProfilID INNER JOIN
        AirVents.StandardSize ON AirVents.DimensionType.SizeID = AirVents.StandardSize.SizeID", con);
 
@@ -370,7 +369,6 @@ namespace OrdersRegistration
 
         bool AirVents_AddOrder()
         {
-
             using (var con = new SqlConnection(App.ConnectionString))
             {
                 try
@@ -808,11 +806,20 @@ LastName = '" + lastName + "'," +
             ТипКаркаса.SelectedIndex = 0;
 
             InnerItems.Children.Clear();
-            InnerItems.Children.Add(new Inners
+            
+            UserControlsOfApp.КомплектующиеЗаказа = new Inners
             {
                 SizeAv = Convert.ToInt32(Типоразмер.SelectedValue),
                 OrderId = OrderId
-            });
+            };
+
+            InnerItems.Children.Add(UserControlsOfApp.КомплектующиеЗаказа);
+
+            //InnerItems.Children.Add(new Inners
+            //{
+            //    SizeAv = Convert.ToInt32(Типоразмер.SelectedValue),
+            //    OrderId = OrderId
+            //});
         }
 
         void OrdersList_LoadingRow(object sender, DataGridRowEventArgs e)
@@ -1037,13 +1044,13 @@ LastName = '" + lastName + "'," +
                     ТипоразмерУстановки = selectedItem.Type,
                     ТипКаркасаУстановки = selectedItem.Description,
 
-                    @SupplyTotalStaticPressure = selectedItem.SupplyTotalStaticPressure,
-                    @SupplyStaticPressure = selectedItem.SupplyStaticPressure,
-                    @SupplyAirflow = selectedItem.SupplyAirflow,
-                    @ExhaustTotalStaticPressure = selectedItem.ExhaustTotalStaticPressure,
-                    @ExhaustStaticPressure = selectedItem.ExhaustStaticPressure,
-                    @ExhaustAirflow = selectedItem.ExhaustAirflow,
-                    @ServiceAccess = selectedItem.ServiceAccess,
+                    SupplyTotalStaticPressure = selectedItem.SupplyTotalStaticPressure,
+                    SupplyStaticPressure = selectedItem.SupplyStaticPressure,
+                    SupplyAirflow = selectedItem.SupplyAirflow,
+                    ExhaustTotalStaticPressure = selectedItem.ExhaustTotalStaticPressure,
+                    ExhaustStaticPressure = selectedItem.ExhaustStaticPressure,
+                    ExhaustAirflow = selectedItem.ExhaustAirflow,
+                    ServiceAccess = selectedItem.ServiceAccess,
                     
                     Создание = false,
                     OrderId = selectedItem.OrderId,
@@ -1080,24 +1087,22 @@ LastName = '" + lastName + "'," +
                     ТипКаркасаУстановки = selectedItem.Description,
                     Создание = false,
                     OrderId = selectedItem.OrderId,
+
                     Wizard = "01"
                 }
             };
             WindowsOfApp.ОкноРедактировать2Заказ.Closed += ОкноРедактировать2ЗаказOnClosed;  
-            
         }
 
-        private static void ОкноРедактировать2ЗаказOnClosed(object sender, EventArgs eventArgs)
+        static void ОкноРедактировать2ЗаказOnClosed(object sender, EventArgs eventArgs)
         {
             WindowsOfApp.ОкноРедактировать2Заказ = null;
         }
 
-        private static void ОкноРедактироватьЗаказ_Closed(object sender, EventArgs e)
+        static void ОкноРедактироватьЗаказ_Closed(object sender, EventArgs e)
         {
             WindowsOfApp.ОкноРедактироватьЗаказ = null;
         }
-
-
 
         void СохранитьЗаказ_Click(object sender, RoutedEventArgs e)
         {
@@ -1115,6 +1120,9 @@ LastName = '" + lastName + "'," +
                 Content = new OrderRegistrationKbUc
                 {
                     OrderId = selectedItem.OrderId,
+                    
+                    SizeAv = Convert.ToInt32(Типоразмер.SelectedValue),
+
                     IsEditMode = true,
                     SavingOrder = true,
                     RequiredDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day),
@@ -1128,7 +1136,7 @@ LastName = '" + lastName + "'," +
             WindowsOfApp.ОкноСохранитьЗаказ.Closed += ОкноСохранитьЗаказOnClosed;
         }
 
-        private void ОкноСохранитьЗаказOnClosed(object sender, EventArgs eventArgs)
+        void ОкноСохранитьЗаказOnClosed(object sender, EventArgs eventArgs)
         {
             WindowsOfApp.ОкноСохранитьЗаказ = null;
         }
@@ -1167,7 +1175,6 @@ LastName = '" + lastName + "'," +
             var parent = Window.GetWindow(this);
             if (parent != null) parent.Hide();
         }
-       
 
         void СоздатьЗаказПолн_Click(object sender, RoutedEventArgs e)
         {
@@ -1229,8 +1236,7 @@ LastName = '" + lastName + "'," +
 
             if (WindowsOfApp.ОкноСохранитьЗаказ == null) return;
             
-            WindowsOfApp.ОкноСохранитьЗаказ.Show();
-            MessageBox.Show("0__0");
+            WindowsOfApp.ОкноСохранитьЗаказ.ShowDialog();
         }
 
         void Отмена_Click(object sender, RoutedEventArgs e)
@@ -1241,7 +1247,7 @@ LastName = '" + lastName + "'," +
 
         #endregion
 
-        private void Номерподбора_SelectionChanged(object sender, RoutedEventArgs e)
+        void Номерподбора_SelectionChanged(object sender, RoutedEventArgs e)
         {
             Вперед.IsEnabled = Номерподбора.Text != "";
         }

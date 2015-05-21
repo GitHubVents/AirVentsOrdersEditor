@@ -10,11 +10,12 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 
-namespace OrdersRegistration
+namespace OrdersRegistration.UserControls
 {
     public partial class OrderRegistrationKbUc
     {
         public int OrderId { get; set; }
+        public int SizeAv { get; set; }
         public bool IsEditMode { get; set; }
         public bool SavingOrder { get; set; }
         public bool EditOrder { get; set; }
@@ -30,11 +31,24 @@ namespace OrdersRegistration
 
         public int OrderDetailId { get; set; }
 
-        private void Grid_Loaded_1(object sender, RoutedEventArgs e)
+        void Grid_Loaded_1(object sender, RoutedEventArgs e)
         {
             if (IsEditMode)
             {
                 ТаблицаЗаказов.Visibility = Visibility.Collapsed;
+
+                UserControlsOfApp.КомплектующиеЗаказа = new Inners
+                {
+                    SizeAv = SizeAv,
+                    OrderId = OrderId
+                };
+                StackPanel.Children.Add(UserControlsOfApp.КомплектующиеЗаказа);
+
+                //StackPanel.Children.Add(new Inners
+                //{
+                //    SizeAv = SizeAv,
+                //    OrderId = OrderId
+                //});
             }
             else
             {
@@ -106,8 +120,7 @@ namespace OrdersRegistration
 
         public string Wizard { get; set; }
 
-
-        private void EditOrderButton_Click(object sender, RoutedEventArgs e)
+        void EditOrderButton_Click(object sender, RoutedEventArgs e)
         {
             if (ЗаказовТаблица.SelectedItem == null)
             {
@@ -129,6 +142,8 @@ namespace OrdersRegistration
                     EditOrder = true,
 
                     OrderId = selectedItem.OrderDetailId,
+                    
+
                     RequiredDate = selectedItem.RequiredDate,
                     ShippedDate = selectedItem.ShippedDate,
                     CompletionDate = selectedItem.CompletionDate,
@@ -145,7 +160,6 @@ namespace OrdersRegistration
             InitializeComponent();
 
             ЗаказовТаблица.ColumnHeaderHeight = 25;
-
 
             #region Конструктора
 
@@ -191,17 +205,17 @@ namespace OrdersRegistration
         {
             var ordersList = new DataTable();
             using (var con = new SqlConnection(App.ConnectionString))
-            { 
+            {
                 try
                 {
                     con.Open();
-                    var sqlCommand = new SqlCommand(@"SELECT HumanResources.Employee.LastName +' '+ LEFT (HumanResources.Employee.FirsrtName, 1)+'.', AirVents.[Order].ProjectNumber, AirVents.[Order].Date, AirVents.StandardSize.Type +' '+ CAST(AirVents.OrderDetails.InternalNumber as NVARCHAR),
+                    var sqlCommand = new SqlCommand(@"SELECT HumanResources.Employee.LastName +' '+ LEFT (HumanResources.Employee.FirsrtName, 1)+'.', AirVents.[OrderName].ProjectNumber, AirVents.[OrderName].Date, AirVents.StandardSize.Type +' '+ CAST(AirVents.OrderDetails.InternalNumber as NVARCHAR),
                       AirVents.Profil.Description, AirVents.OrderDetails.RequiredDate, AirVents.OrderDetails.ShippedDate, 
                       AirVents.OrderDetails.CompletionDate, AirVents.OrderDetails.FinishCompletionDate, HumanResources.Constructor.LastName +' '+ LEFT (HumanResources.Constructor.FirstName, 1)+'.', AirVents.OrderDetails.OrderDetailID
-                      FROM AirVents.[Order] INNER JOIN
-                      AirVents.DimensionType ON AirVents.[Order].DimensionTypeID = AirVents.DimensionType.DimensionTypeID INNER JOIN
-                      HumanResources.Employee ON AirVents.[Order].empid = HumanResources.Employee.EmpID INNER JOIN
-                      AirVents.OrderDetails ON AirVents.[Order].OrderID = AirVents.OrderDetails.OrderID INNER JOIN
+                      FROM AirVents.[OrderName] INNER JOIN
+                      AirVents.DimensionType ON AirVents.[OrderName].DimensionTypeID = AirVents.DimensionType.DimensionTypeID INNER JOIN
+                      HumanResources.Employee ON AirVents.[OrderName].empid = HumanResources.Employee.EmpID INNER JOIN
+                      AirVents.OrderDetails ON AirVents.[OrderName].OrderID = AirVents.OrderDetails.OrderID INNER JOIN
                       HumanResources.Constructor ON AirVents.OrderDetails.ConstructorID = HumanResources.Constructor.ConstructorID AND 
                       AirVents.OrderDetails.ConstructorID = HumanResources.Constructor.ConstructorID INNER JOIN
                       AirVents.Profil ON AirVents.DimensionType.ProfilID = AirVents.Profil.ProfilID AND AirVents.DimensionType.ProfilID = AirVents.Profil.ProfilID INNER JOIN
@@ -239,7 +253,7 @@ namespace OrdersRegistration
             public int OrderDetailId { get; set; }
         }
         
-        private static IEnumerable<OrdersConstructorDataClass> OrdersConstructorDataList()
+        static IEnumerable<OrdersConstructorDataClass> OrdersConstructorDataList()
         {
             var list = (from DataRow row in OrdersConstructorTable().Rows
                    select new OrdersConstructorDataClass
@@ -261,10 +275,12 @@ namespace OrdersRegistration
         
         #region После обновления DataGrid спуститься вниз
 
-        private void СоздатьЗаказ_Click(object sender, RoutedEventArgs e)
+        void СоздатьЗаказ_Click(object sender, RoutedEventArgs e)
         {
+
             if (!AirVents_AddOrderDetail()) return;
             ЗаказовТаблица.ItemsSource = OrdersConstructorDataList();
+
             //if (ЗаказовТаблица.Items.Count > 0)
             //{
             //    var border = VisualTreeHelper.GetChild(ЗаказовТаблица, 0) as Decorator;
@@ -274,18 +290,18 @@ namespace OrdersRegistration
             //        if (scroll != null) scroll.ScrollToEnd();
             //    }
             //}
+
             var parent = Window.GetWindow(this);
             if (parent != null) parent.Close();
+
         }
 
         #endregion
 
         #endregion
-
        
         #endregion
-
-
+        
         bool AirVents_AddOrderDetail()
         {
             if (НомерЗаказа.Text == "")
@@ -465,7 +481,6 @@ namespace OrdersRegistration
             var parent = Window.GetWindow(this);
             if (parent != null) parent.Hide();
 
-
             if (WindowsOfApp.ОкноРедактироватьЗаказ != null)
             {
                 WindowsOfApp.ОкноРедактироватьЗаказ.Show();
@@ -476,19 +491,16 @@ namespace OrdersRegistration
             {
                 WindowsOfApp.ОкноРедактировать2Заказ.Show();
             }
-
-         
         }
 
-        private void Отмена_Click(object sender, RoutedEventArgs e)
+        void Отмена_Click(object sender, RoutedEventArgs e)
         {
             var parent = Window.GetWindow(this);
             if (parent != null) parent.Close();
         }
 
-        private void Вперед_Click(object sender, RoutedEventArgs e)
+        void Вперед_Click(object sender, RoutedEventArgs e)
         {
-          
             if (!IsEditMode)
             {
                 Редактировать_Click(null,null);
@@ -496,7 +508,7 @@ namespace OrdersRegistration
             СоздатьЗаказ_Click(null, null);   
         }
 
-        private void НомерЗаказа_SelectionChanged(object sender, RoutedEventArgs e)
+        void НомерЗаказа_SelectionChanged(object sender, RoutedEventArgs e)
         {
             IsAhead();
         }
@@ -513,25 +525,22 @@ namespace OrdersRegistration
             } 
         }
 
-        private void Конструктор_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        void Конструктор_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             IsAhead();
         }
 
-        private void Конструктор_LayoutUpdated(object sender, EventArgs e)
+        void Конструктор_LayoutUpdated(object sender, EventArgs e)
         {
             IsAhead();
         }
 
-        private void ЗаказовТаблица_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        void ЗаказовТаблица_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (IsEditMode) return;
 
             Заказы.НаПрощете = OrdersConstructorDataList().Count(x => x.FinishCompletionDate == "");
             Заказы.ВРаботе = OrdersConstructorDataList().Count(x => x.FinishCompletionDate != "");
         }
-        
-        
-
     }
 }
