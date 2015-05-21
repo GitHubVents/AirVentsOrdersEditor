@@ -96,3 +96,6 @@ C:\Users\kb81.VENTS\Source\Repos\AirVentsOrdersEditor\AirVentsOrdersEditor\Order
 C:\Users\Denis Orel\Source\Repos\AirVentsOrdersEditor\AirVentsOrdersEditor\OrdersRegistration\bin\Debug\OrdersRegistration.exe.config
 C:\Users\Denis Orel\Source\Repos\AirVentsOrdersEditor\AirVentsOrdersEditor\OrdersRegistration\obj\Debug\OrdersRegistration.exe
 C:\Users\Denis Orel\Source\Repos\AirVentsOrdersEditor\AirVentsOrdersEditor\OrdersRegistration\obj\Debug\OrdersRegistration.pdb
+D:\Project\Developments\AirVentsOrdersEditor\AirVentsOrdersEditor\OrdersRegistration\bin\Debug\OrdersRegistration.exe.config
+D:\Project\Developments\AirVentsOrdersEditor\AirVentsOrdersEditor\OrdersRegistration\obj\Debug\OrdersRegistration.exe
+D:\Project\Developments\AirVentsOrdersEditor\AirVentsOrdersEditor\OrdersRegistration\obj\Debug\OrdersRegistration.pdb
