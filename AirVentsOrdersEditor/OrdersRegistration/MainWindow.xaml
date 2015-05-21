@@ -4,8 +4,8 @@
         Title="Учет заказов" SizeToContent="WidthAndHeight" Width="Auto" Height="Auto" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="1427371082_379508.ico" Activated="Window_Activated_1">
     <Grid >
         <Grid.ColumnDefinitions>
-            <ColumnDefinition MinWidth="50"/>
-            <ColumnDefinition MinWidth="50"/>
+            <ColumnDefinition MinWidth="500"/>
+            <ColumnDefinition MinWidth="500"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition MinHeight="50"/>
