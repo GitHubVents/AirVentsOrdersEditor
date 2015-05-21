@@ -18,7 +18,7 @@ namespace AirVentsOrderManager
     /// <summary>
     /// Interaction logic for ManagerEditorUC.xaml
     /// </summary>
-    public partial class ManagerEditorUC : UserControl
+    public partial class ManagerEditorUC : Window
     {
         public ManagerEditorUC()
         {
