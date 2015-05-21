@@ -71,16 +71,12 @@ C:\Users\kb81.VENTS\Source\Repos\AirVentsOrdersEditor\AirVentsOrdersEditor\Order
 C:\Users\kb81.VENTS\Source\Repos\AirVentsOrdersEditor\AirVentsOrdersEditor\OrdersRegistration\bin\Debug\WPFToolkit.dll
 C:\Users\kb81.VENTS\Source\Repos\AirVentsOrdersEditor\AirVentsOrdersEditor\OrdersRegistration\bin\Debug\WPFToolkit.pdb
 C:\Users\kb81.VENTS\Source\Repos\AirVentsOrdersEditor\AirVentsOrdersEditor\OrdersRegistration\obj\Debug\OrdersRegistration.csprojResolveAssemblyReference.cache
-C:\Users\kb81.VENTS\Source\Repos\AirVentsOrdersEditor\AirVentsOrdersEditor\OrdersRegistration\obj\Debug\OrderRegistrationKBUc.baml
 C:\Users\kb81.VENTS\Source\Repos\AirVentsOrdersEditor\AirVentsOrdersEditor\OrdersRegistration\obj\Debug\MainWindow.baml
-C:\Users\kb81.VENTS\Source\Repos\AirVentsOrdersEditor\AirVentsOrdersEditor\OrdersRegistration\obj\Debug\OrderRegistrationUc.baml
 C:\Users\kb81.VENTS\Source\Repos\AirVentsOrdersEditor\AirVentsOrdersEditor\OrdersRegistration\obj\Debug\Theme.baml
 C:\Users\kb81.VENTS\Source\Repos\AirVentsOrdersEditor\AirVentsOrdersEditor\OrdersRegistration\obj\Debug\UserControls\Assemblage.baml
 C:\Users\kb81.VENTS\Source\Repos\AirVentsOrdersEditor\AirVentsOrdersEditor\OrdersRegistration\obj\Debug\UserControls\ChartUc.baml
 C:\Users\kb81.VENTS\Source\Repos\AirVentsOrdersEditor\AirVentsOrdersEditor\OrdersRegistration\obj\Debug\App.baml
-C:\Users\kb81.VENTS\Source\Repos\AirVentsOrdersEditor\AirVentsOrdersEditor\OrdersRegistration\obj\Debug\OrderRegistrationKBUc.g.cs
 C:\Users\kb81.VENTS\Source\Repos\AirVentsOrdersEditor\AirVentsOrdersEditor\OrdersRegistration\obj\Debug\MainWindow.g.cs
-C:\Users\kb81.VENTS\Source\Repos\AirVentsOrdersEditor\AirVentsOrdersEditor\OrdersRegistration\obj\Debug\OrderRegistrationUc.g.cs
 C:\Users\kb81.VENTS\Source\Repos\AirVentsOrdersEditor\AirVentsOrdersEditor\OrdersRegistration\obj\Debug\UserControls\Assemblage.g.cs
 C:\Users\kb81.VENTS\Source\Repos\AirVentsOrdersEditor\AirVentsOrdersEditor\OrdersRegistration\obj\Debug\UserControls\ChartUc.g.cs
 C:\Users\kb81.VENTS\Source\Repos\AirVentsOrdersEditor\AirVentsOrdersEditor\OrdersRegistration\obj\Debug\App.g.cs
@@ -91,6 +87,10 @@ C:\Users\kb81.VENTS\Source\Repos\AirVentsOrdersEditor\AirVentsOrdersEditor\Order
 C:\Users\kb81.VENTS\Source\Repos\AirVentsOrdersEditor\AirVentsOrdersEditor\OrdersRegistration\obj\Debug\OrdersRegistration.csproj.GenerateResource.Cache
 C:\Users\kb81.VENTS\Source\Repos\AirVentsOrdersEditor\AirVentsOrdersEditor\OrdersRegistration\obj\Debug\OrdersRegistration.exe.manifest
 C:\Users\kb81.VENTS\Source\Repos\AirVentsOrdersEditor\AirVentsOrdersEditor\OrdersRegistration\obj\Debug\OrdersRegistration.application
+C:\Users\kb81.VENTS\Source\Repos\AirVentsOrdersEditor\AirVentsOrdersEditor\OrdersRegistration\obj\Debug\UserControls\OrderRegistrationKBUc.baml
+C:\Users\kb81.VENTS\Source\Repos\AirVentsOrdersEditor\AirVentsOrdersEditor\OrdersRegistration\obj\Debug\UserControls\OrderRegistrationUc.baml
+C:\Users\kb81.VENTS\Source\Repos\AirVentsOrdersEditor\AirVentsOrdersEditor\OrdersRegistration\obj\Debug\UserControls\OrderRegistrationKBUc.g.cs
+C:\Users\kb81.VENTS\Source\Repos\AirVentsOrdersEditor\AirVentsOrdersEditor\OrdersRegistration\obj\Debug\UserControls\OrderRegistrationUc.g.cs
 C:\Users\kb81.VENTS\Source\Repos\AirVentsOrdersEditor\AirVentsOrdersEditor\OrdersRegistration\obj\Debug\Inners.baml
 C:\Users\kb81.VENTS\Source\Repos\AirVentsOrdersEditor\AirVentsOrdersEditor\OrdersRegistration\obj\Debug\Inners.g.cs
 C:\Users\Denis Orel\Source\Repos\AirVentsOrdersEditor\AirVentsOrdersEditor\OrdersRegistration\bin\Debug\OrdersRegistration.exe.config

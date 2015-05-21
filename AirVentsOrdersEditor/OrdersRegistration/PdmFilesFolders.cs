@@ -7,8 +7,9 @@ namespace OrdersRegistration
 {
     public class PdmFilesFolders
     {
-       
+
         public string OrderName { get; set; }
+        
 
         public string VaultName { get; set; }
 
@@ -17,19 +18,23 @@ namespace OrdersRegistration
             MessageBox.Show(CopyAFile(CreateDistDirectory(@"E:\Tets_debag\Vents-PDM\Заказы AirVents Frameless\AV76654"), AsmTemplatePath, OrderName).ToString());
         }
 
-        static readonly EdmVault5 _vault5 = new EdmVault5();
-        
-        const string AsmTemplatePath
+        static readonly EdmVault5 Vault5 = new EdmVault5();
+
+        static string AsmTemplatePath
         {
-            get { return Path.Combine(_vault5.RootFolderPath, @"\Vents-PDM\Заказы AirVents Frameless\AV75 75B\Assm.sldasm"); }
-        } 
+            get { return RootFolder + @"\Библиотека проектирования\Templates\Assm.sldasm"; }
+        }
+        static string DrwTemplatePath
+        {
+            get { return RootFolder + @"\Библиотека проектирования\Templates\drw.slddrw"; }
+        }
 
         bool LoginVaultAuto()
         {
-            if (_vault5.IsLoggedIn) return true;
+            if (Vault5.IsLoggedIn) return true;
             try
             {
-                _vault5.LoginAuto(VaultName, 0);
+                Vault5.LoginAuto(VaultName, 0);
                 return true;
             }
             catch (Exception exception)
@@ -39,20 +44,19 @@ namespace OrdersRegistration
             }
         }
 
-        
-        
-        string RootFolder
+        static string RootFolder
         {
-            get { return _vault5.RootFolderPath; }
+            get { return Vault5.RootFolderPath; }
         }
-        
-        //string Folder(string orderName)
-        //{
-        //    return String.Format(@"{0}\{1}\{2} {3}B",
-        //        Settings.Default.DestinationFolder,
-        //        @"\Заказы AirVents Frameless",
-        //        orderName);
-        //}
+
+
+        string Folder(string orderName)
+        {
+            //return String.Format(@"{0}\{1}\{2} {3}B",
+            //    Settings.Default.DestinationFolder,
+            //    @"\Заказы AirVents Frameless",
+            //    orderName);
+        }
 
         IEdmFolder5 CreateDistDirectory(string path)
         {
@@ -62,7 +66,7 @@ namespace OrdersRegistration
                 var directoryInfo = new DirectoryInfo(path);
                 if (!LoginVaultAuto()) return null;
 
-                var vault2 = (IEdmVault7)_vault5;
+                var vault2 = (IEdmVault7)Vault5;
                 if (directoryInfo.Exists)
                 {
                     iEdmFolder5 = vault2.GetFolderFromPath(directoryInfo.FullName); 
@@ -86,7 +90,7 @@ namespace OrdersRegistration
         int CopyAFile(IEdmFolder5 destinationFolder, string destinationFilePath, string newName)
         {
             IEdmFolder5 oFolder;
-            var edmFile5 = _vault5.GetFileFromPath(destinationFilePath, out oFolder);
+            var edmFile5 = Vault5.GetFileFromPath(destinationFilePath, out oFolder);
 
             return destinationFolder.CopyFile(edmFile5.ID, oFolder.ID, 0, newName);
         }
