@@ -9,13 +9,12 @@ namespace OrdersRegistration
     {
 
         public string OrderName { get; set; }
-        
 
         public string VaultName { get; set; }
 
         public void CreateOrder()
         {
-            MessageBox.Show(CopyAFile(CreateDistDirectory(@"E:\Tets_debag\Vents-PDM\Заказы AirVents Frameless\AV76654"), AsmTemplatePath, OrderName).ToString());
+            MessageBox.Show(CopyAFile(CreateDestinationDirectory(@"E:\Tets_debag\Vents-PDM\Заказы AirVents Frameless\AV76654"), AsmTemplatePath, OrderName).ToString());
         }
 
         static readonly EdmVault5 Vault5 = new EdmVault5();
@@ -24,6 +23,7 @@ namespace OrdersRegistration
         {
             get { return RootFolder + @"\Библиотека проектирования\Templates\Assm.sldasm"; }
         }
+
         static string DrwTemplatePath
         {
             get { return RootFolder + @"\Библиотека проектирования\Templates\drw.slddrw"; }
@@ -49,16 +49,15 @@ namespace OrdersRegistration
             get { return Vault5.RootFolderPath; }
         }
 
+        //string Folder(int typeFolder)
+        //{
+        //    return String.Format(@"{0}\{1}\{2} {3}B",
+        //        Settings.Default.DestinationFolder,
+        //        @"\Заказы AirVents Frameless",
+        //        orderName);
+        //}
 
-        string Folder(string orderName)
-        {
-            //return String.Format(@"{0}\{1}\{2} {3}B",
-            //    Settings.Default.DestinationFolder,
-            //    @"\Заказы AirVents Frameless",
-            //    orderName);
-        }
-
-        IEdmFolder5 CreateDistDirectory(string path)
+        IEdmFolder5 CreateDestinationDirectory(string path)
         {
             IEdmFolder5 iEdmFolder5 = null;
             try
@@ -87,7 +86,7 @@ namespace OrdersRegistration
             return iEdmFolder5;
         }
 
-        int CopyAFile(IEdmFolder5 destinationFolder, string destinationFilePath, string newName)
+        static int CopyAFile(IEdmFolder5 destinationFolder, string destinationFilePath, string newName)
         {
             IEdmFolder5 oFolder;
             var edmFile5 = Vault5.GetFileFromPath(destinationFilePath, out oFolder);
