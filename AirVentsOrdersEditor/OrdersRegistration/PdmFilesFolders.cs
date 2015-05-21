@@ -90,7 +90,6 @@ namespace OrdersRegistration
         {
             IEdmFolder5 oFolder;
             var edmFile5 = Vault5.GetFileFromPath(destinationFilePath, out oFolder);
-
             return destinationFolder.CopyFile(edmFile5.ID, oFolder.ID, 0, newName);
         }
 
